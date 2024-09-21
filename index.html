@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự Đoán Tương Lai</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="game-container">
+        <div class="container" id="step1">
+            <label for="gender">Hãy cho tôi một chút thông tin về bạn tôi có thể dự đoán bạn đời tương lai của bạn, trước tiên bạn là:</label>
+            <select id="gender">
+                <option value="male">Nam</option>
+                <option value="female">Nữ</option>
+            </select>
+            <button onclick="nextStep(1)">Tiếp tục</button>
+        </div>
+
+        <div class="container" id="step2" style="display: none;">
+            <input type="text" id="name" placeholder="Nhập tên của bạn" required>
+            <button onclick="nextStep(2)">Tiếp tục</button>
+        </div>
+
+        <div class="container" id="step3" style="display: none;">
+            <input type="date" id="dob" required>
+            <button onclick="predict()">Bắt đầu tiên tri</button>
+        </div>
+
+        <h2 id="loading" class="result" style="display: none;">Đang dự đoán...</h2>
+        <h2 id="result" class="result" style="display: none;"></h2>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Tạo các sao
+        const stars = [];
+        const count = 500;
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        for(let i=0; i<count; i++){
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const star = {
+                x: x,
+                y: y,
+                r: Math.random() * 2 + 1
+            };
+            stars.push(star);
+        }
+
+        // Vẽ sao
+        function draw(){
+            context.clearRect(0,0,canvas.width,canvas.height);
+            context.fillStyle = "white";
+            for(let i=0; i<count; i++){
+                const star = stars[i];
+                context.beginPath();
+                context.arc(star.x,star.y,star.r,0,2*Math.PI);
+                context.fill();
+            }
+        }
+
+        // Cập nhật vị trí sao
+        function update(){
+            for(let i=0; i<count; i++){
+                const star = stars[i];
+                star.x += Math.random() * 2 - 1;
+                star.y += Math.random() * 2 - 1;
+                if (star.x > canvas.width) star.x = 0;
+                if (star.x < 0) star.x = canvas.width;
+                if (star.y > canvas.height) star.y = 0;
+                if (star.y < 0) star.y = canvas.height;
+            }
+        }
+
+        // Lặp lại chuyển động sao và vẽ trái tim
+        setInterval(function(){
+            update();
+            draw();
+        }, 100/6);
+    </script>
+</body>
+</html>

@@ -24,7 +24,7 @@ function predict() {
         const maleNames = ["An", "Bình", "Cường", "Duy", "Hưng", "Khôi", "Nam", "Phong", "Quang", "Sơn", "Tài", "Việt", "Vinh"];
         const femaleNames = ["Hoa", "Lan", "Mai", "Ngọc", "Thảo", "Chi", "Diễm", "Hương", "Kiều", "Linh", "Nhi", "Thúy", "Yến"];
 
-        const randomYear = Math.floor(Math.random() * (2000 - 1980 + 1)) + 1980; // Năm sinh từ 1980 đến 2000
+        const randomYear = Math.floor(Math.random() * (2010 - 2000 + 1)) + 2000; // Năm sinh từ 1980 đến 2000
 
         const randomName = (gender === "male") 
             ? femaleNames[Math.floor(Math.random() * femaleNames.length)] 
